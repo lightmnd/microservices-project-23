@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setRegistrationStatus } from "./redux/registerSlice";
+
 const RegistrationPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const registrationStatus = useSelector(
+    (state) => state.register.registrationStatus
+  ); // Access registration status from Redux store
+
   const [formData, setFormData] = useState({ username: "", password: "" });
 
   const handleChange = (e) => {
@@ -16,10 +24,12 @@ const RegistrationPage = () => {
     try {
       const res = await axios.post("/register", formData);
       if (res.status === 201) {
-        navigate("/login"); // Redirect to the login page on successful registration
+        dispatch(setRegistrationStatus(formData));
+        navigate("/login");
       }
     } catch (error) {
       console.error("Registration error:", error);
+      dispatch(setRegistrationStatus("Registration failed"));
     }
   };
 
@@ -49,6 +59,7 @@ const RegistrationPage = () => {
         </div>
         <button className="btn btn-primary">Submit</button>
       </form>
+      {registrationStatus && <p>{registrationStatus}</p>}
     </div>
   );
 };

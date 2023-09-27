@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "./redux/authSlice";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({ username: "", password: "" });
 
   const handleChange = (e) => {
@@ -18,10 +21,12 @@ export const LoginPage = () => {
       const res = await axios.post("/login", formData);
 
       if (res.status === 200) {
+        dispatch(login(formData));
         navigate("/");
       }
     } catch (error) {
       console.error("Login error:", error);
+      dispatch(login("Login failed"));
     }
   };
 
