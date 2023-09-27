@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import PostList from "./PostList";
 
 const PostCreate = () => {
   const [title, setTitle] = useState("");
@@ -16,6 +17,7 @@ const PostCreate = () => {
 
   return (
     <div>
+      <h1>Create Post</h1>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label>Title</label>
@@ -27,6 +29,11 @@ const PostCreate = () => {
         </div>
         <button className="btn btn-primary">Submit</button>
       </form>
+
+      {/* <PostCreate /> */}
+      <hr />
+      <h1>Posts</h1>
+      <PostList />
     </div>
   );
 };
