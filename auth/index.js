@@ -12,20 +12,40 @@ app.use(cookieParser());
 app.use(cors());
 
 // MongoDB connection
-mongoose.connect(
-  "mongodb+srv://lightmnd:xp1GEzmtvTOPY9n6@microservices.sv6dhxq.mongodb.net/",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
+const connectToDB = async () => {
+  mongoose.set("strictQuery", false);
+  try {
+    mongoose.connect(
+      "mongodb+srv://lightmnd:xp1GEzmtvTOPY9n6@microservices.sv6dhxq.mongodb.net/"
+    );
+    console.log("connect to database");
+  } catch (error) {
+    throw error;
   }
-);
+};
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB");
+mongoose.connection.on("disconnected", () => {
+  console.log("DB disconnected");
 });
+
+mongoose.connection.on("connected", () => {
+  console.log("DB connected");
+});
+
+// mongoose.connect(
+//   "mongodb+srv://lightmnd:xp1GEzmtvTOPY9n6@microservices.sv6dhxq.mongodb.net/",
+//   {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useCreateIndex: true,
+//   }
+// );
+
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "MongoDB connection error:"));
+// db.once("open", () => {
+//   console.log("Connected to MongoDB");
+// });
 
 const userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
@@ -37,7 +57,7 @@ const User = mongoose.model("User", userSchema);
 // JWT secret key
 const JWT_SECRET = "mySuperSecretKey2023!!";
 
-app.post("/signup", async (req, res) => {
+app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -101,6 +121,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log(`Server is running on port 5000`);
+app.listen(4008, () => {
+  connectToDB();
+  console.log(`Server is running on port 4008`);
 });

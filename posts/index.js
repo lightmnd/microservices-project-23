@@ -4,10 +4,6 @@ const { randomBytes } = require("crypto");
 const cors = require("cors");
 const axios = require("axios");
 
-const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
-
-
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());

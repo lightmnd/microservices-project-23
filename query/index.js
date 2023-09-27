@@ -6,21 +6,58 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(cors());
 require("./scheduledTasks");
+const mongoose = require("mongoose");
+
+mongoose.connect(
+  "mongodb+srv://lightmnd:xp1GEzmtvTOPY9n6@microservices.sv6dhxq.mongodb.net/"
+);
+console.log("connect to database");
 
 const posts = {};
 
-const handleEvents = (type, data) => {
+const postSchema = new mongoose.Schema({
+  id: String,
+  title: String,
+  comments: [{ type: String }],
+});
+
+const Post = mongoose.model("Post", postSchema);
+
+const commentSchema = new mongoose.Schema({
+  id: String,
+  content: String,
+  postId: String,
+});
+
+const Comment = mongoose.model("Comment", commentSchema);
+const handleEvents = async (type, data) => {
   if (type === "PostCreated") {
     const { id, title } = data;
-
     posts[id] = { id, title, comments: [] };
+    const newPost = new Post({ id, title, comments: [] });
+
+    try {
+      await newPost.save();
+    } catch (error) {
+      console.error("Error saving post to MongoDB:", error);
+    }
   }
 
   if (type === "CommentCreated") {
     const { id, content, postId } = data;
-
     const post = posts[postId];
     post?.comments?.push({ id, content });
+    const newComment = new Comment({ id, content, postId });
+    try {
+      await newComment.save();
+      await Post.findByIdAndUpdate(
+        postId,
+        { $push: { comments: id } },
+        { new: true }
+      );
+    } catch (error) {
+      console.error("Error adding comment to post in MongoDB:", error);
+    }
   }
 };
 
@@ -28,9 +65,8 @@ app.get("/posts", (req, res) => {
   res.send(posts);
 });
 
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
   const { type, data } = req.body;
-
   handleEvents(type, data);
 
   console.log(posts);

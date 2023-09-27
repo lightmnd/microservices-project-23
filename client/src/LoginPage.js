@@ -18,10 +18,11 @@ export const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("/login", formData);
+      const res = await axios.post("http://localhost:4008/login", formData);
 
       if (res.status === 200) {
         dispatch(login(formData));
+        localStorage.setItem("user", JSON.stringify(formData));
         navigate("/");
       }
     } catch (error) {

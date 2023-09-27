@@ -9,7 +9,7 @@ const RegistrationPage = () => {
   const dispatch = useDispatch();
   const registrationStatus = useSelector(
     (state) => state.register.registrationStatus
-  ); // Access registration status from Redux store
+  );
 
   const [formData, setFormData] = useState({ username: "", password: "" });
 
@@ -22,9 +22,9 @@ const RegistrationPage = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("/register", formData);
+      const res = await axios.post("http://localhost:4008/register", formData);
       if (res.status === 201) {
-        dispatch(setRegistrationStatus(formData));
+        dispatch(setRegistrationStatus("Registration succesful"));
         navigate("/login");
       }
     } catch (error) {

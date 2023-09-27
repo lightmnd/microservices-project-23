@@ -9,8 +9,8 @@ import store from "./redux/store";
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <div className="container">
+    <div className="container">
+      <Provider store={store}>
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -19,8 +19,8 @@ const App = () => {
             <Route path="/register" element={<RegistrationPage />} />
           </Routes>
         </Router>
-      </div>
-    </Provider>
+      </Provider>
+    </div>
   );
 };
 export default App;
