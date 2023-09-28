@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setRegistrationStatus } from "./redux/registerSlice";
@@ -60,6 +60,14 @@ const RegistrationPage = () => {
         <button className="btn btn-primary">Submit</button>
       </form>
       {registrationStatus && <p>{registrationStatus}</p>}
+      <div
+        className={"d-flex flex-column justify-content-start align-items-start"}
+      >
+        <span className="mt-3">Are you already registered?</span>
+        <Link className="btn btn-primary" to="/login">
+          Go to Login
+        </Link>
+      </div>
     </div>
   );
 };

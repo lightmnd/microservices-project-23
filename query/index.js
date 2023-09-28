@@ -4,9 +4,10 @@ const cors = require("cors");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+const amqp = require("amqplib");
 app.use(cors());
-require("./scheduledTasks");
 const mongoose = require("mongoose");
+require("./scheduledTasks");
 
 mongoose.connect(
   "mongodb+srv://lightmnd:xp1GEzmtvTOPY9n6@microservices.sv6dhxq.mongodb.net/"
@@ -50,8 +51,8 @@ const handleEvents = async (type, data) => {
     const newComment = new Comment({ id, content, postId });
     try {
       await newComment.save();
-      await Post.findByIdAndUpdate(
-        postId,
+      await Post.findOneAndUpdate(
+        { id: postId },
         { $push: { comments: id } },
         { new: true }
       );
@@ -69,8 +70,6 @@ app.post("/events", async (req, res) => {
   const { type, data } = req.body;
   handleEvents(type, data);
 
-  console.log(posts);
-
   res.send({});
 });
 
@@ -81,6 +80,23 @@ app.listen(4002, async () => {
 
   for (let event of res.data) {
     console.log("processing event:", event.type);
-    handleEvents(event.type, event.data);
+    // handleEvents(event.type, event.data);
   }
+
+  // Connect to RabbitMQ
+  const connection = await amqp.connect("amqp://127.0.0.2:5672");
+  const channel = await connection.createChannel();
+  const queueName = "eventQueue";
+
+  // Declare a queue for receiving events
+  await channel.assertQueue(queueName, { durable: false });
+  channel.consume(queueName, (msg) => {
+    try {
+      const eventData = JSON.parse(msg.content.toString());
+      console.log("Received event:", eventData.type);
+      handleEvents(eventData.type, eventData.data);
+    } catch (error) {
+      console.error("Error handling RabbitMQ message:", error);
+    }
+  });
 });

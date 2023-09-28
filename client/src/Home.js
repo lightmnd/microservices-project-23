@@ -12,13 +12,27 @@ const Home = () => {
       {isAuthenticated ? (
         <>
           <h2>Welcome, {user.username}!</h2>
-          <Link to="/add-post">Add New Post</Link>
+          <Link className="btn btn-primary" to="/add-post">
+            Add New Post
+          </Link>
         </>
       ) : (
         <>
           <h2>Welcome to my Social App</h2>
-          <Link to="/login">Go to Login</Link>
-          <Link to="/register">Go to Signup</Link>
+          <Link
+            className="btn btn-primary mb-3 mt-3"
+            style={{ width: 120 }}
+            to="/login"
+          >
+            Go to Login
+          </Link>
+          <Link
+            className="btn btn-primary"
+            style={{ width: 120 }}
+            to="/register"
+          >
+            Go to Signup
+          </Link>
         </>
       )}
     </div>

@@ -30,7 +30,6 @@ const PostCreate = () => {
         <button className="btn btn-primary">Submit</button>
       </form>
 
-      {/* <PostCreate /> */}
       <hr />
       <h1>Posts</h1>
       <PostList />
