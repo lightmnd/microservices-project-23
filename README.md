@@ -14,7 +14,7 @@
 
 ## 1. Introduction
 
-Welcome to the documentation of our Social Network project. This project allows users to register, log in, create posts, and add comments to posts. It utilizes various technologies including React, Node.js, Express, and MongoDB to provide a robust social networking platform.
+This project is a simple Social application allows users to register, login, create posts, and add comments to posts. It utilizes various technologies including React, Node.js, Express, and MongoDB to provide a robust social networking platform.
 
 ## 2. Architecture Overview
 
@@ -33,6 +33,9 @@ Our application is divided into several microservices, each responsible for spec
 - **User Service**: Manages user registration and login.
 - **Post Service**: Handles post creation and retrieval.
 - **Comment Service**: Allows users to add comments to posts.
+- **Event Bus (or Event Broker) Service**: Handles async microservices communication.
+- **Query**: Manages query based on event type and handles queue messages.
+- **Auth Service**: Handles Authentication logic encrypting decrypting credentials.
 
 This microservices architecture promotes isolation and independent scaling of services.
 
@@ -46,13 +49,19 @@ We employ an event bus to manage the communication between microservices. The ev
 
 ### Queue System with RabbitMQ
 
-To handle write requests to the database efficiently, we have implemented a queue system using RabbitMQ. Write requests, such as creating a new post or comment, are placed in a queue and processed asynchronously. This enhances the performance and reliability of our application.
+To handle write requests to the database efficiently, a queuing system was implemented using RabbitMQ. Write requests, such as creating a new post or comment, are placed in a queue and processed asynchronously. This enhances the performance and reliability of our application.
 
-## 7. Nice to Have
+## 7. Docker Containerization
 
-### Kubernetes Orchestration
+### Docker Containerization
 
-to be completed...
+Our application is containerized using Docker, allowing for consistent deployment across different environments. Docker containers encapsulate each microservice, simplifying deployment and ensuring compatibility.
+
+## 8. Kubernetes Orchestration (Future)
+
+### Kubernetes Orchestration (Nice to Have in the Future)
+
+In the future, we plan to implement Kubernetes orchestration for our microservices. Kubernetes provides powerful tools for container orchestration, including automatic scaling, load balancing, and robust management of containerized applications. This will further enhance the scalability and reliability of our platform.
 
 ---
 

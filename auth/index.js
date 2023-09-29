@@ -32,21 +32,6 @@ mongoose.connection.on("connected", () => {
   console.log("DB connected");
 });
 
-// mongoose.connect(
-//   "mongodb+srv://lightmnd:xp1GEzmtvTOPY9n6@microservices.sv6dhxq.mongodb.net/",
-//   {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useCreateIndex: true,
-//   }
-// );
-
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "MongoDB connection error:"));
-// db.once("open", () => {
-//   console.log("Connected to MongoDB");
-// });
-
 const userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   password: { type: String },
