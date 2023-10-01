@@ -1,4 +1,8 @@
-# Social Network Project Documentation
+# Social Posts Project Documentation
+
+# System Diagram
+
+![alt text](EventBus-diagram.png)
 
 ## Table of Contents
 
@@ -14,7 +18,7 @@
 
 ## 1. Introduction
 
-This project is a simple Social application allows users to register, login, create posts, and add comments to posts. It utilizes various technologies including React, Node.js, Express, and MongoDB to provide a robust social networking platform.
+This project is a simple Social application allows users to register, login, create posts, and add comments to posts. It utilizes various technologies including React, Node.js, Express, and MongoDB to provide a robust social posts platform.
 
 ## 2. Architecture Overview
 
@@ -65,4 +69,4 @@ In the future, we plan to implement Kubernetes orchestration for our microservic
 
 ---
 
-This documentation provides an overview of our Social Network project, highlighting key components such as the microservices architecture, authentication system, event bus, and queue system.
+This documentation provides an overview of our Social Posts project, highlighting key components such as the microservices architecture, authentication system, event bus, and queue system.
