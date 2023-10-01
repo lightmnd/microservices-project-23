@@ -61,9 +61,9 @@ To handle write requests to the database efficiently, a queuing system was imple
 
 Our application is containerized using Docker, allowing for consistent deployment across different environments. Docker containers encapsulate each microservice, simplifying deployment and ensuring compatibility.
 
-## 8. Kubernetes Orchestration (Future)
+## 8. Kubernetes Orchestration
 
-### Kubernetes Orchestration (Nice to Have in the Future)
+### Kubernetes Orchestration (Nice to Have)
 
 In the future, we plan to implement Kubernetes orchestration for our microservices. Kubernetes provides powerful tools for container orchestration, including automatic scaling, load balancing, and robust management of containerized applications. This will further enhance the scalability and reliability of our platform.
 
