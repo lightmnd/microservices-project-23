@@ -6,13 +6,13 @@
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Architecture Overview](#architecture-overview)
-3. [Authentication](#authentication)
-4. [Microservices](#microservices)
-5. [Event Bus](#event-bus)
-6. [Queue System](#queue-system)
-7. [Nice To Have](#nice-to-have)
+1. - [Introduction](#introduction)
+2. - [Architecture Overview](#architecture-overview)
+3. - [Authentication](#authentication)
+4. - [Microservices](#microservices)
+5. - [Event Bus](#event-bus)
+6. - [Queue System](#queue-system)
+7. - [Nice To Have](#nice-to-have)
 
 ---
 
