@@ -1,1 +1,7 @@
-*/node_modules/
+auth/node_modules
+client/mongo_db_backup
+event-bus/node_modules
+query/node_modules
+posts/node_modules
+comments/node_modules
+node_modules
