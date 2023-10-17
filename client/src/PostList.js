@@ -12,7 +12,6 @@ const PostList = () => {
 
       setPosts(res.data);
     };
-    console.log(Object.values(posts));
     const comInterval = setInterval(fetchPosts, 1000); //This will refresh the data at regularIntervals of refreshTime
     return () => clearInterval(comInterval); //Clear interval on component unmount to avoid memory leak
   }, [posts]);

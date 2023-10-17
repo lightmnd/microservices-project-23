@@ -78,11 +78,6 @@ app.listen(4002, async () => {
 
   const res = await axios.get("http://localhost:4005/events");
 
-  for (let event of res.data) {
-    console.log("processing event:", event.type);
-    // handleEvents(event.type, event.data);
-  }
-
   // Connect to RabbitMQ
   const connection = await amqp.connect("amqp://127.0.0.2:5672");
   const channel = await connection.createChannel();
